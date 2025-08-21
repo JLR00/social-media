@@ -1,38 +1,246 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@font-face {
+    font-family: 'GeneralSans-Variable';
+    src: url('./fonts/GeneralSans-Variable.ttf') format('truetype');
+    font-weight: 200 700;
+    font-display: swap;
+    font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root{
+    /*Colors*/
+    --primary-color: #FFA500;
+    --primary-color-dark: #CC8400;
+    --primary-bg-color: #121212;
+    --secondary-bg-color: #1E1E1E;
+    --primary-text-color: #E0E0E0;
+    --secondary-text-color: #A0A0A0;
+    --white-contrast: #F5F5F5;
+    --border-color: #2C2C2C;
+    --deactivate-color: #444444;
+
+    /*Padding*/
+    --small-padding: 1rem;
+    --medium-padding: 1.5rem;
+
+    /*Button Padding*/
+    --small-button-padding: 1rem 1.2rem;
+
+    /*Border-radius*/
+    --small-border-radius: 5px;
+    --medium-border-radius: 15px;
+    --large-border-radius: 25px;
+    --round-border-radius: 100px;
+
+
+    /*Texts sizes*/
+    --primary-title-size: 3rem;
+    --secondary-title-size: 2.25rem;
+    --third-title-size: 1.5rem;
+    --text-size: 1.125rem;
+    --small-text-size: 1rem;
+
+    /*Margins*/
+    --section-margin: 3rem;
+    --title-margin: 1.5rem;
+    --paragraph-margin: 1rem;
+    --mini-text-size: 0.85rem;
+    --form-margin: 1rem;
+    --buttons-margin: 1.5rem;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body{
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1{
+    font-family: "GeneralSans-Variable";
+    font-size: var(--primary-title-size);
+    font-weight: 700;
+    margin: 0 0 var(--title-margin) 0;
+}
+
+h2{
+    font-family: "GeneralSans-Variable";
+    font-size: var(--secondary-title-size);
+    font-weight: 600;
+    margin: 0 0 var(--title-margin) 0;
+}
+
+h3{
+    font-family: "GeneralSans-Variable";
+    font-size: var(--third-title-size);
+    font-weight: 500;
+}
+
+p{
+    font-family: "Inter", sans-serif;
+    font-size: var(--text-size);
+    font-weight: 300;
+    margin: 0 0 var(--paragraph-margin) 0;
+}
+
+.container{
+  padding: 0 5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.post-card{
+    border: 1px solid var(--border-color);
+    border-radius: var(--medium-border-radius);
+    padding: var(--medium-padding);
+    margin-bottom: var(--section-margin);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.post-header{
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--paragraph-margin);
+}
+
+.post-header img{
+    width: 50px;
+    height: 50px;
+    border-radius: var(--round-border-radius);
+    margin-right: var(--paragraph-margin);
+}
+
+.post-header .icon{
+    width: 50px;
+    height: 50px;
+    border-radius: var(--round-border-radius);
+    margin-right: var(--paragraph-margin);
+    color: var(--primary-color);
+}
+
+.post-header p{
+    margin: 0;
+}
+
+.post .post-reactions-count p{
+    font-size: var(--mini-text-size);
+    margin: 0;
+}
+.post .post-reactions{
+    display: flex;
+}
+/*.post .post-reactions*/ .btn{
+    background-color: rgba(255,255,255,0);
+    color: var(--primary-text-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    padding: var(--small-button-padding);
+    border-radius: var(--small-border-radius);
+    margin-right: var(--form-margin);
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+/*.post .post-reactions*/ .btn:hover{
+    background-color: rgba(255,255,255,.25);
+    color: var(--primary-text-color);
+}
+
+/*.post .post-reactions*/ .btn .icon{
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.post .post-reactions .btn.liked{
+    background-color: var(--primary-color);
+    box-shadow: inset 0 0 15px 3px rgba(0,0,0,0.2);
+}
+
+.post-container{
+    width: 50%;
+}
+
+.profile-container{
+    width: 25%;
+}
+
+
+/*Navbar*/
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 3rem 3rem 3rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar a{
+    font-family: "GeneralSans-Variable";
+    color: var(--primary-text-color);
+    text-decoration: none;
+    margin: 0 1rem;
+    border-bottom: 1px solid var(--primary-bg-color);
+    transition: border-bottom 0.3s;
+}
+
+.navbar a:hover{
+    border-bottom: 1px solid var(--primary-text-color);
+}
+
+/*Profile*/
+.profile-header{
+    width: 100%;
+}
+.profile-wallpaper{
+    border: 1px solid var(--border-color);
+    height: 25rem;
+    width: 100%;
+}
+.profile-wallpaper img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-image{
+    width: 8rem;
+    height: 8rem;
+    border-radius: var(--round-border-radius);
+    margin: -4.5rem 0 0 2rem;
+}
+
+/*CreatePost*/
+.createpost-container{
+    padding: var(--medium-padding);
+    border: 1px solid var(--border-color);
+    border-radius: var(--medium-border-radius);
+    margin-bottom: var(--section-margin);
+}
+
+.createpost-container .title-input{
+    width: 100%;
+    background-color: var(--primary-bg-color);
+    border: 0 solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--primary-text-color);
+    font-family: GeneralSans-Variable;
+    font-size: var(--secondary-title-size);
+    font-weight: 600;
+}
+
+.createpost-container .title-input:focus{
+    outline: none;
+}
+
+.createpost-container textarea{
+    width: 100%;
+    background-color: var(--primary-bg-color);
+    resize: none;
+    border: none;
+    font-family: Inter, sans-serif;
+    font-size: var(--text-size);
+    font-weight: 300;
+    color: var(--primary-text-color);
+}
+
+.createpost-container textarea:focus{
+    outline: none;
 }
