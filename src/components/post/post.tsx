@@ -93,7 +93,7 @@ export const Post = (props: Props) => {
                     <button className="btn"><Icon icon="mynaui:share" className="icon" />Share</button>
                 </div>
                 <div>
-                    <CreateComment />
+                    <CreateComment post={post} />
                 </div>
             </div>
         </div>
