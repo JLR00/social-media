@@ -68,7 +68,6 @@ export const CreateComment = (props: Props) => {
         <div>
             <form onSubmit={addComment}>
                 <textarea placeholder="Express Yourself" onChange={(e) => setNewComment(e.target.value)} value={newComment}/>
-                <p>{newComment}</p>
                 <input type="submit" className="btn" value="Add Comment" />
             </form>
 
