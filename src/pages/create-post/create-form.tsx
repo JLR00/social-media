@@ -33,7 +33,8 @@ export const CreateForm = () => {
             userId: user?.uid,
         });
 
-        navigate("/");
+        //navigate("/");
+        window.location.reload();
     };
     return (
         <form onSubmit={handleSubmit(onCreatePost)}>
