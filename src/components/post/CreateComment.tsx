@@ -1,8 +1,6 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Post as IPost} from "../../pages/home/home"
-import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
 import {db, auth} from "../../config/firebase"
 import {useAuthState} from "react-firebase-hooks/auth";
 import {addDoc, getDocs, deleteDoc, doc, collection, query, where} from "firebase/firestore";
@@ -14,11 +12,14 @@ interface Props {
 interface Comment {
     commentId: string;
     userId: string;
+    username: string;
+    text: string;
 }
 
 
 export const CreateComment = (props: Props) => {
-    const [comment, setComment] = useState<Comment[] | null>(null);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [newComment, setNewComment] = useState<string>();
     const [user] = useAuthState(auth);
     const {post} = props;
 
@@ -31,42 +32,58 @@ export const CreateComment = (props: Props) => {
     const commentsDoc = query(commentsRef, where("postId", "==", post.id));
     const getComments = async () => {
         const data = await getDocs(commentsDoc);
-        setComment(data.docs.map((doc) => ({userId: doc.data().userId, commentId: doc.id})));
+        setComments(data.docs.map((doc) => ({
+            commentId: doc.id,
+            userId: doc.data().userId,
+            username: doc.data().username,
+            text: doc.data().comment
+        })));
     }
 
-    //const handleSubmit = async (e: React.FormEvent) => {
-    //    //e.preventDefault
-//
-    //    console.log("Comment envoyé: ", comment)
-//
-    //    //await addDoc(collection(db, "comments"), {
-    //    //    text: comment,
-    //    //    user: user?.uid,
-    //    //})
-//
-    //    setComment("")
-    //}
+    const addComment = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newComment?.trim()) return;
 
-    const addComment = async () => {
         try{
-            const newDoc = await addDoc(commentsRef, {
+            await addDoc(commentsRef, {
                 userId: user?.uid,
+                username: user?.displayName,
                 postId: post.id,
+                comment: newComment
             });
-            if (user) {
-                setComment((prev) => prev ? [...prev, {userId: user?.uid, likeId: newDoc.id}] : [{userId: user?.uid, likeId: newDoc.id}]);
-            }
+            setNewComment("");
+            getComments();
             console.log("Commentaire ajouté");
         } catch (err) {
             console.error(err);
         }
     }
 
+    // Charger les commentaires quand le composant est monté
+    useEffect(() => {
+        getComments();
+    }, [])
+
     return (
-        <form onSubmit={handleSubmit}>
-            <textarea placeholder="Express Yourself" onChange={(e) => setComment(e.target.value)} value={comment}/>
-            <p>{comment}</p>
-            <input type="submit" className="btn" value="Add Comment" />
-        </form>
+        <div>
+            <form onSubmit={addComment}>
+                <textarea placeholder="Express Yourself" onChange={(e) => setNewComment(e.target.value)} value={newComment}/>
+                <p>{newComment}</p>
+                <input type="submit" className="btn" value="Add Comment" />
+            </form>
+
+            <div className="comments-list">
+                <h4>Commentaire: </h4>
+                {comments.length === 0 ? (
+                    <p>Aucun commentaire pour le moment.</p>
+                ) : (
+                    comments.map((c) => (
+                        <div>
+                            <strong>{c.username} : {c.text}</strong>
+                        </div>
+                    ))
+                )}
+            </div>
+        </div>
     );
 }
