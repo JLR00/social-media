@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { CreateComment } from "./CreateComment";
+import { Link } from "react-router-dom";
 
 interface Props {
   post: IPost;
@@ -89,8 +90,12 @@ export const Post = (props: Props) => {
   return (
     <div className="post">
       <div className="post-header">
-        <img src={auth.currentUser?.photoURL || ""} alt="Profile Picture" />
-        <p>@{post.username}</p>
+        <Link to={`/profile/${post.userId}`}>
+          <img src={auth.currentUser?.photoURL || ""} alt="Profile Picture" />
+        </Link>
+        <Link to={`/profile/${post.userId}`}>
+          <p>@{post.username}</p>
+        </Link>
       </div>
       <div className="post-card">
         <div className="post-title">

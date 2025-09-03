@@ -22,7 +22,7 @@ export const Navbar = () => {
                 ) : (
                     <>
                         <Link to="/createpost">Create Post</Link>
-                        <Link to="/profile">My Page</Link>
+                        <Link to={`/profile/${user.uid}`}>My Page</Link>
                     </>
                 )}
             </div>

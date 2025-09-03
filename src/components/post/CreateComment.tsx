@@ -12,6 +12,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 interface Props {
   post: IPost;
@@ -91,9 +92,7 @@ export const CreateComment = (props: Props) => {
         ) : (
           comments.map((c) => (
             <div>
-              <strong>
-                {c.username} : {c.text}
-              </strong>
+              <Link to={`/profile/${c.userId}`}>@{c.username}</Link> : {c.text}
             </div>
           ))
         )}
